@@ -120,40 +120,39 @@ document.getElementById("filtroAluno").addEventListener("input", (e) => {
 function abrirModal(nome, registro) {
     const modal = document.getElementById("modalAluno");
     const lista = document.getElementById("modalListaNotas");
-    const badgeModal = document.getElementById("modalMediaBadge"); // Referência ao badge do modal
+    const badgeModal = document.getElementById("modalMediaBadge"); 
     
     if (!modal || !lista) return;
 
     document.getElementById("modalNomeAluno").textContent = nome;
 
-    // Se não houver registro, mostra aviso e abre o modal
     if (!registro || !registro.dados) {
         lista.innerHTML = "<p class='vazio'>Nenhum lançamento encontrado para este aluno.</p>";
-        badgeModal.textContent = "--";
-        badgeModal.classList.remove("verde", "amarelo", "vermelho"); // Limpa cores se estiver vazio
+        if (badgeModal) {
+            badgeModal.textContent = "--";
+            badgeModal.classList.remove("verde", "amarelo", "vermelho");
+        }
         modal.style.display = "flex";
         return;
     }
 
-    // --- LÓGICA DE COR DO BADGE  ---
+    // --- LÓGICA DE COR DO BADGE ---
     const mediaGeral = registro.media_geral || "--";
-    badgeModal.textContent = mediaGeral;
-    
-    // Limpa classes anteriores para não acumular
-    badgeModal.classList.remove("verde", "amarelo", "vermelho");
-    
-    // Aplica a classe baseada na nota
-    if (mediaGeral !== "--") {
-        const notaNum = parseFloat(mediaGeral);
-        if (notaNum >= 8.0) badgeModal.classList.add("verde");
-        else if (notaNum > 6.0) badgeModal.classList.add("amarelo");
-        else badgeModal.classList.add("vermelho");
+    if (badgeModal) {
+        badgeModal.textContent = typeof mediaGeral === 'number' ? mediaGeral.toFixed(3) : mediaGeral;
+        badgeModal.classList.remove("verde", "amarelo", "vermelho");
+        if (mediaGeral !== "--") {
+            const notaNum = parseFloat(mediaGeral);
+            if (notaNum >= 8.0) badgeModal.classList.add("verde");
+            else if (notaNum > 6.0) badgeModal.classList.add("amarelo");
+            else badgeModal.classList.add("vermelho");
+        }
     }
-    // ----------------------------------------------
 
     const d = registro.dados;
     let htmlFinal = "";
 
+    // Helper para processar notas de provas teóricas (Acertos/Total)
     const processarProva = (idAcertos, idTotal, label) => {
         const ac = parseFloat(d[idAcertos]), tot = parseFloat(d[idTotal]);
         if (!isNaN(ac) && !isNaN(tot) && tot > 0) {
@@ -172,62 +171,94 @@ function abrirModal(nome, registro) {
         return htmlProvas ? `<div class="secao-modal"><div class="secao-header"><span>${titulo}</span><span class="badge-media-item gold">${(soma / count).toFixed(2)}</span></div>${htmlProvas}</div>` : "";
     };
 
-    const gerarMateriaSemMedia = (titulo, provasConfig) => {
-        let htmlProvas = "";
-        provasConfig.forEach(p => {
-            const res = processarProva(p.ac, p.tot, p.label);
-            if (res.valida) { htmlProvas += res.html; }
-        });
-        return htmlProvas ? `<div class="secao-modal"><div class="secao-header"><span>${titulo}</span></div>${htmlProvas}</div>` : "";
-    };
+    // --- 1. TÉCNICAS MILITARES (Sincronizado com os novos IDs) ---
+    htmlFinal += gerarMateriaComMedia("Técnicas Militares 1", [
+        { label: "AA1", ac: "acertos-tec1-aa1", tot: "total-tec1-aa1" }, 
+        { label: "AA2", ac: "acertos-tec1-aa2", tot: "total-tec1-aa2" }, 
+        { label: "AC", ac: "acertos-tec1-ac", tot: "total-tec1-ac" }
+    ]);
 
-    htmlFinal += gerarMateriaComMedia("Técnicas Militares", [{ label: "AA1", ac: "acertos-tec-aa1", tot: "total-tec-aa1" }, { label: "AA2", ac: "acertos-tec-aa2", tot: "total-tec-aa2" }, { label: "AC", ac: "acertos-tec-ac", tot: "total-tec-ac" }]);
-    htmlFinal += gerarMateriaComMedia("Fundamentos", [{ label: "AA", ac: "acertos-fund-aa", tot: "total-fund-aa" }, { label: "AC", ac: "acertos-fund-ac", tot: "total-fund-ac" }]);
-    htmlFinal += gerarMateriaComMedia("Cibernética", [{ label: "AA1", ac: "acertos-ciber-aa1", tot: "total-ciber-aa1" }, { label: "AA2", ac: "acertos-ciber-aa2", tot: "total-ciber-aa2" }, { label: "AC", ac: "acertos-ciber-ac", tot: "total-ciber-ac" }]);
-    htmlFinal += gerarMateriaComMedia("Emprego das Com", [{ label: "AA", ac: "acertos-empre-aa", tot: "total-empre-aa" }, { label: "AC", ac: "acertos-empre-ac", tot: "total-empre-ac" }]);
-    htmlFinal += gerarMateriaSemMedia("Ensino", [{ label: "Português", ac: "acertos-pt-ac", tot: "total-pt-ac" }, { label: "Lógica", ac: "acertos-racio-ac", tot: "total-racio-ac" }, { label: "Didática", ac: "acertos-didat-ac", tot: "total-didat-ac" }]);
+    htmlFinal += gerarMateriaComMedia("Técnicas Militares 2", [
+        { label: "AC", ac: "acertos-tec2-ac", tot: "total-tec2-ac" }
+    ]);
 
+    htmlFinal += gerarMateriaComMedia("Técnicas Militares 3", [
+        { label: "AA1", ac: "acertos-tec3-aa1", tot: "total-tec3-aa1" }, 
+        { label: "AA2", ac: "acertos-tec3-aa2", tot: "total-tec3-aa2" }, 
+        { label: "AC", ac: "acertos-tec3-ac", tot: "total-tec3-ac" }
+    ]);
+
+    // --- 2. EMPREGO DA ENGENHARIA ---
+    htmlFinal += gerarMateriaComMedia("Emprego da Engenharia", [
+        { label: "AC", ac: "acertos-empre-ac", tot: "total-empre-ac" }
+    ]);
+
+    // --- 3. ENSINO (PAPIRO) ---
+    htmlFinal += gerarMateriaComMedia("Matérias de Ensino", [
+        { label: "Português", ac: "acertos-pt-ac", tot: "total-pt-ac" }, 
+        { label: "Lógica", ac: "acertos-racio-ac", tot: "total-racio-ac" }, 
+        { label: "Didática", ac: "acertos-didat-ac", tot: "total-didat-ac" }
+    ]);
+
+    // --- 4. TIRO ---
     let tiroHtml = "", sTiro = 0, cTiro = 0;
-    ["aa", "ac1", "ac2"].forEach(t => {
-        const v = parseFloat(d[`tiro-${t}`]);
-        if (!isNaN(v)) { sTiro += v; cTiro++; tiroHtml += `<div class="sub-nota"><span>${t.toUpperCase()}</span><span class="nota-valor">${v.toFixed(2)}</span></div>`; }
+    // IDs: tiro-aa (Pst), tiro-ac1 (Fz AA), tiro-ac2 (Fz AC)
+    const provasTiro = [
+        { id: "tiro-aa", label: "Pst (Pontos)" },
+        { id: "tiro-ac1", label: "Fz AA" },
+        { id: "tiro-ac2", label: "Fz AC" }
+    ];
+    provasTiro.forEach(t => {
+        const v = parseFloat(d[t.id]);
+        if (!isNaN(v)) { 
+            sTiro += v; cTiro++; 
+            tiroHtml += `<div class="sub-nota"><span>${t.label}</span><span class="nota-valor">${v}</span></div>`; 
+        }
     });
     if (tiroHtml) htmlFinal += `<div class="secao-modal"><div class="secao-header"><span>Tiro</span><span class="badge-media-item gold">${(sTiro / cTiro).toFixed(2)}</span></div>${tiroHtml}</div>`;
 
+    // --- 5. TFM (Completo) ---
     let tfmHtml = "", sTfm = 0, cTfm = 0;
     const mods = [
         { id: 'corrida', l: 'Corrida', t: true },
         { id: 'flexao', l: 'Flexão', t: false, u: 'Reps' },
         { id: 'barra', l: 'Barra', t: false, u: 'Reps' },
         { id: 'natacao', l: 'Natação', t: true },
-        { id: 'corda', l: 'Corda', t: false, u: '' },
-        { id: 'ppm', l: 'PPM', t: false, u: '' }
+        { id: 'corda', l: 'Corda', t: false, u: 'm' },
+        { id: 'ppm', l: 'PPM', t: true }
     ];
 
     mods.forEach(m => {
-        const vAA = parseFloat(d[`${m.id}-aa`]), vAC = parseFloat(d[`${m.id}-ac`]);
-        if (!isNaN(vAA) || !isNaN(vAC)) {
-            const nAA = calcularNotaTFM('aa', vAA, m.id);
-            const nAC = calcularNotaTFM('ac', vAC, m.id);
-            const mediaMod = (nAA + nAC) / ((vAA > 0 ? 1 : 0) + (vAC > 0 ? 1 : 0));
+        const vAA = d[`${m.id}-aa`], vAC = d[`${m.id}-ac`];
+        if (vAA || vAC) {
+            const nAA = calcularNotaTFM('aa', vAA, m.id) || 0;
+            const nAC = calcularNotaTFM('ac', vAC, m.id) || 0;
+            
+            let divisor = 0;
+            if (vAA) divisor++;
+            if (vAC) divisor++;
+            
+            const mediaMod = (nAA + nAC) / divisor;
             sTfm += mediaMod; cTfm++;
 
-            const formatarV = (val) => {
-                if (!val || val <= 0) return "00:00";
-                if (m.t) {
-                    let s = val.toFixed(2).replace('.', ':');
-                    if (s.indexOf(':') === 1) s = '0' + s;
-                    return s;
-                }
-                return `${val} ${m.u}`.trim();
-            };
-
-            tfmHtml += `<div class="linha-tfm-detalhe"><strong>${m.l}</strong><div class="tfm-bruto">AA: ${formatarV(vAA)} <span class="laranja">(${nAA.toFixed(1)})</span> | AC: ${formatarV(vAC)} <span class="laranja">(${nAC.toFixed(1)})</span></div></div>`;
+            tfmHtml += `<div class="linha-tfm-detalhe">
+                <strong>${m.l}</strong>
+                <div class="tfm-bruto">
+                    AA: ${vAA || '--'} <span class="laranja">(${nAA.toFixed(1)})</span> | 
+                    AC: ${vAC || '--'} <span class="laranja">(${nAC.toFixed(1)})</span>
+                </div>
+            </div>`;
         }
     });
     if (tfmHtml) htmlFinal += `<div class="secao-modal"><div class="secao-header"><span>TFM</span><span class="badge-media-item gold">${(sTfm / cTfm).toFixed(2)}</span></div>${tfmHtml}</div>`;
 
-    htmlFinal += `<div class="secao-modal"><div class="secao-header"><span>Conceito & Extras</span></div><div class="linha-extra">Básico: <strong>${d["nota-bas"] || '--'}</strong></div><div class="linha-extra">TCC: <strong>${d["nota-tcc"] || '--'}</strong></div><div class="linha-extra">Conceito: <strong>${d["nota-conceito"] || '--'}</strong></div></div>`;
+    // --- 6. EXTRAS ---
+    htmlFinal += `<div class="secao-modal">
+        <div class="secao-header"><span>Conceito & Extras</span></div>
+        <div class="linha-extra">Básico: <strong>${d["nota-bas"] || '--'}</strong></div>
+        <div class="linha-extra">TCC: <strong>${d["nota-tcc"] || '--'}</strong></div>
+        <div class="linha-extra">Conceito: <strong>${d["nota-conceito"] || '--'}</strong></div>
+    </div>`;
 
     lista.innerHTML = htmlFinal;
     modal.style.display = "flex";
@@ -241,15 +272,26 @@ function exportarParaExcel() {
 
     const dadosPlanilha = window.dadosNotas.map(nota => {
         const d = nota.dados || {};
+        
+        // Helper para formatar campos de tempo (mm:ss)
         const fmtT = (val) => {
-            if(!val) return "--";
-            let s = parseFloat(val).toFixed(2).replace('.', ':');
-            return s.indexOf(':') === 1 ? '0' + s : s;
+            if (!val) return "--";
+            return val; // Já está salvo como string mm:ss no snapshot
+        };
+
+        // Helper para calcular nota de acertos (Acertos / Total * 10)
+        const calcNota = (ac, tot) => {
+            const numAc = parseFloat(d[ac]);
+            const numTot = parseFloat(d[tot]);
+            if (isNaN(numAc) || isNaN(numTot) || numTot === 0) return 0;
+            return ((numAc / numTot) * 10).toFixed(2);
         };
 
         return {
             "Nome de Guerra": window.dadosUsuarios[nota.usuario_id] || "NÃO ENCONTRADO",
-            "Média Geral": nota.media_geral || 0,
+            "Média Geral": parseFloat(nota.media_geral || 0).toFixed(3),
+            
+            // --- TFM ---
             "Corrida AA": fmtT(d["corrida-aa"]),
             "Corrida AC": fmtT(d["corrida-ac"]),
             "Flexão AA": d["flexao-aa"] || 0,
@@ -258,27 +300,51 @@ function exportarParaExcel() {
             "Barra AC": d["barra-ac"] || 0,
             "Natação AA": fmtT(d["natacao-aa"]),
             "Natação AC": fmtT(d["natacao-ac"]),
-            "Tiro Pst": (parseFloat(d["tiro-aa"])/4 || 0).toFixed(3),
-            "Tiro Fz AA": d["tiro-ac1"] || "--",
-            "Tiro Fz AC": d["tiro-ac2"] || "--",
-            "Tec. Mil AA1": (parseFloat(d["acertos-tec-aa1"])/parseFloat(d["total-tec-aa1"])*10 || 0).toFixed(2),
-            "Tec. Mil AC": (parseFloat(d["acertos-tec-ac"])/parseFloat(d["total-tec-ac"])*10 || 0).toFixed(2),
-            "Português": (parseFloat(d["acertos-pt-ac"])/parseFloat(d["total-pt-ac"])*10 || 0).toFixed(2),
-            "Lógica": (parseFloat(d["acertos-racio-ac"])/parseFloat(d["total-racio-ac"])*10 || 0).toFixed(2),
-            "Didática": (parseFloat(d["acertos-didat-ac"])/parseFloat(d["total-didat-ac"])*10 || 0).toFixed(2),
-            "Básico": d["nota-bas"] || "--",
-            "TCC": d["nota-tcc"] || "--",
-            "Conceito": d["nota-conceito"] || "--"
+            "Corda AA": d["corda-aa"] || 0,
+            "Corda AC": d["corda-ac"] || 0,
+            "PPM AA": fmtT(d["ppm-aa"]),
+            "PPM AC": fmtT(d["ppm-ac"]),
+
+            // --- TIRO ---
+            "Tiro Pst (Pontos)": d["tiro-aa"] || 0,
+            "Tiro Fz AA": d["tiro-ac1"] || 0,
+            "Tiro Fz AC": d["tiro-ac2"] || 0,
+
+            // --- MATÉRIAS AC/TOTAL ---
+            "Básico": d["nota-bas"] || 0,
+            "Tec Mil 1 AA1": calcNota("acertos-tec1-aa1", "total-tec1-aa1"),
+            "Tec Mil 1 AA2": calcNota("acertos-tec1-aa2", "total-tec1-aa2"),
+            "Tec Mil 1 AC": calcNota("acertos-tec1-ac", "total-tec1-ac"),
+            
+            "Tec Mil 2 AC": calcNota("acertos-tec2-ac", "total-tec2-ac"),
+            
+            "Emprego Eng AC": calcNota("acertos-empre-ac", "total-empre-ac"),
+            
+            "Tec Mil 3 AA1": calcNota("acertos-tec3-aa1", "total-tec3-aa1"),
+            "Tec Mil 3 AA2": calcNota("acertos-tec3-aa2", "total-tec3-aa2"),
+            "Tec Mil 3 AC": calcNota("acertos-tec3-ac", "total-tec3-ac"),
+            
+            "Português AC": calcNota("acertos-pt-ac", "total-pt-ac"),
+            "Raciocínio Lógico AC": calcNota("acertos-racio-ac", "total-racio-ac"),
+            "Didática AC": calcNota("acertos-didat-ac", "total-didat-ac"),
+            
+            "TCC": d["nota-tcc"] || 0,
+            "Conceito": d["nota-conceito"] || 0
         };
     });
 
+    // Gerar planilha
     const worksheet = XLSX.utils.json_to_sheet(dadosPlanilha);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Notas Alunos");
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Relatório de Notas");
+
+    // Ajuste automático de largura das colunas
     const colWidths = Object.keys(dadosPlanilha[0]).map(key => ({ wch: key.length + 5 }));
     worksheet['!cols'] = colWidths;
-    const dataAtual = new Date().toLocaleDateString().replace(/\//g, '-');
-    XLSX.writeFile(workbook, `Relatorio_Notas_Monitorizacao_${dataAtual}.xlsx`);
+
+    // Nome do arquivo com data
+    const dataAtual = new Date().toLocaleDateString('pt-BR').replace(/\//g, '-');
+    XLSX.writeFile(workbook, `Relatorio_Engenharia_${dataAtual}.xlsx`);
 }
 
 // Inicialização e Eventos

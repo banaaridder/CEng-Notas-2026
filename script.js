@@ -78,9 +78,7 @@ if (btnSalvar) {
             // Chamamos o salvarNotas passando o snapshot atual
             salvarNotas(criarSnapshot());
         }
-        if (nomeUsuario === "ADMIN") {
-        checkTeste.removeAttribute("disabled");
-    }
+        
     });
 }
 
@@ -204,10 +202,12 @@ async function salvarNotas(snapshotAtual) {
     }
 
     try {
-        calcularTudo();
-        const mediaFinalValida = (isNaN(window.mediaGeralAtual) || window.mediaGeralAtual === null) 
+        calcularTudo(); // Atualiza window.mediaGeralAtual
+        
+        // CORREÇÃO CRÍTICA: Garante que enviamos um NÚMERO real para o banco
+        const mediaFinalValida = (window.mediaGeralAtual === null || isNaN(window.mediaGeralAtual)) 
                                  ? 0 
-                                 : parseFloat(window.mediaGeralAtual.toFixed(3));
+                                 : parseFloat(Number(window.mediaGeralAtual).toFixed(3));
 
         const dadosLimpos = JSON.parse(snapshotAtual);
 
@@ -217,7 +217,7 @@ async function salvarNotas(snapshotAtual) {
                 {
                     usuario_id: usuarioId,
                     dados: dadosLimpos,
-                    media_geral: mediaFinalValida
+                    media_geral: mediaFinalValida // Enviando como número float
                 },
                 { onConflict: "usuario_id" }
             );
@@ -236,12 +236,14 @@ async function salvarNotas(snapshotAtual) {
         console.error("Erro completo:", err);
         btn.className = "btn-salvar erro";
         if (status) {
-            status.textContent = "Erro ao salvar!";
+            // Se o erro for 400, mostramos uma dica técnica no console
+            status.textContent = "Erro 400: Dados inválidos";
             status.style.color = "#e74c3c";
         }
     } finally {
         setTimeout(() => {
-            if (!checkTeste.checked) btn.className = "btn-salvar";
+            const check = document.getElementById("btn-modo-teste");
+            if (check && !check.checked) btn.className = "btn-salvar";
         }, 2000);
     }
 }
@@ -416,18 +418,26 @@ function calcularMateriaSimples(container) {
 
 function calcularTudo() {
     let soma = 0, count = 0;
+    // Removi 'fund' se ele não estiver no seu HTML, e certifique-se de que 'tec1', 'tec2', 'tec3' existem.
     const materias = ["tec1", "tec2", "tec3", "empre", "pt", "racio", "didat"];
 
     materias.forEach(m => {
         const media = calcularMateria(m);
         const span = document.getElementById(`media-${m}`);
-        if (media !== null) {
-            span.textContent = media.toFixed(3);
-            soma += media;
-            count++;
-        } else { span.textContent = "--"; }
+        
+        // Só tenta atualizar o texto se o elemento realmente existir no HTML
+        if (span) {
+            if (media !== null) {
+                span.textContent = media.toFixed(3);
+                soma += media;
+                count++;
+            } else { 
+                span.textContent = "--"; 
+            }
+        }
     });
 
+    // Cálculos de blocos especiais
     document.querySelectorAll('[data-tipo="simples"]').forEach(materia => {
         const media = calcularMateriaSimples(materia);
         if (media !== null) { soma += media; count++; }
@@ -439,11 +449,14 @@ function calcularTudo() {
     const mediaTFM = calcularTFM();
     if (mediaTFM !== null) { soma += mediaTFM; count++; }
 
+    // Atualização da Média Geral
     const mediaFinal = count > 0 ? soma / count : null;
-    document.getElementById("media-geral").textContent = mediaFinal !== null ? mediaFinal.toFixed(3) : "--";
+    const displayGeral = document.getElementById("media-geral");
+    if (displayGeral) {
+        displayGeral.textContent = mediaFinal !== null ? mediaFinal.toFixed(3) : "--";
+    }
     window.mediaGeralAtual = mediaFinal;
 }
-
 function mascaraTempo(input) {
     let valor = input.value.replace(/\D/g, "");
     if (valor.length > 4) valor = valor.slice(0, 4);
