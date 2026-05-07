@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="login.css">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1b383a">
+  <title>Login</title>
+</head>
+<body>
+
+<div class="layout center">
+<div class="login-box">
+    <h2>Login CEng</h2>
+
+    <input type="text" id="usuario" list="lista-alunos" placeholder="Nome de Guerra">
+<datalist id="lista-alunos">
+<option value="Vinhote">
+<option value="Wernek">
+<option value="G Marinho">
+<option value="Balielo">
+<option value="Gadi">
+<option value="Carvalho Nunes">
+<option value="Peterson">
+<option value="Morales">
+<option value="Gregorio">
+<option value="Laedson">
+<option value="Herculano">
+<option value="Victor Carvalho">
+<option value="Brayan">
+<option value="Borges">
+<option value="Pastor">
+<option value="P Galvão">
+<option value="Lindolpho">
+<option value="Hugo Silva">
+<option value="Kajotha">
+<option value="Arruda">
+<option value="Telles">
+<option value="Calebe">
+<option value="Valim">
+<option value="Kawan">
+<option value="Paulo Santos">
+<option value="Mello">
+<option value="Lucas Soares">
+<option value="L Silva">
+<option value="Stanley">
+<option value="Claudio Feitosa">
+<option value="Renzo">
+<option value="Moraes">
+<option value="Pedro Costa">
+<option value="Bragança">
+<option value="Freire">
+<option value="L Rocha">
+<option value="Vinicius">
+<option value="Arthur Silva">
+<option value="Nivaldo">
+<option value="Jeverson">
+<option value="P Batista">
+<option value="Claudio Barbosa">
+<option value="Henrique Barbosa">
+<option value="Felix">
+<option value="Kennedy">
+<option value="Thiago Oliveira">
+<option value="L Coutinho">
+<option value="Alef Custódio">
+<option value="João">
+<option value="Machado">
+<option value="Flávio">
+<option value="Santos">
+<option value="Bonifácio">
+<option value="Custódio">
+<option value="Nauan">
+<option value="D Almeida">
+<option value="G Oliveira">
+<option value="Henrique Sousa">
+<option value="Candido">
+<option value="Daniel Miranda">
+<option value="Murilo Amancio">
+<option value="Daniel Andrade">
+<option value="Camelo">
+<option value="Pedro Rangel">
+<option value="Samuel Ferreira">
+    <option value="ADMIN">
+</datalist>
+
+
+
+    <input type="password" id="senha" placeholder="Senha">
+
+    <!-- Mensagem de erro -->
+    <p id="mensagem-erro" class="mensagem-erro"></p>
+
+    <button id="btnLogin" type="button" class="btn-feedback">
+        <span class="btn-text">Entrar</span>
+        <span class="btn-spinner"></span>
+        <span class="btn-check">✓</span>
+        <span class="btn-error">✕</span>
+    </button>
+
+    <p class="link">
+        Não tem conta?
+        <a href="register.html">Criar conta</a>
+    </p>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="login.js"></script>
+
+</body>
+</html>

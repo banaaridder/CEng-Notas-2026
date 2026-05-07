@@ -1,0 +1,221 @@
+/* =========================
+   RESET
+========================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: radial-gradient(circle at top, #1b383a 0%, #0d0d0d 100%);
+    color: #e6e6e6;
+    min-height: 100vh;
+}
+
+/* =========================
+   CARD RANKING
+========================= */
+.materia.ranking {
+    max-width: 720px;
+    margin: 40px auto;
+    background: linear-gradient(180deg, #111, #0b0b0b);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.8);
+    animation: fadeIn 0.4s ease forwards;
+}
+
+.materia.ranking h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color:  rgba(13,235,230,1);;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* Container do Scroll Lateral */
+.ranking-options-container {
+    width: 100%;
+    overflow-x: auto; /* Habilita o scroll lateral */
+    padding: 10px 0 20px 0;
+    margin-bottom: 10px;
+    -webkit-overflow-scrolling: touch; /* Scroll suave no iOS */
+}
+
+/* Esconder a barra de scroll feia em alguns navegadores */
+.ranking-options-container::-webkit-scrollbar {
+    height: 4px;
+}
+.ranking-options-container::-webkit-scrollbar-thumb {
+    background: rgba(13,235,230,0.3);;
+    border-radius: 10px;
+}
+
+.ranking-options {
+    display: flex;
+    gap: 12px;
+    white-space: nowrap;
+    padding: 0 20px;
+    margin: 0 auto; /* Reforça a centralização */
+}
+
+/* Botões de Opção */
+.opt-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: #888;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    flex-shrink: 0; /* Impede que o botão esmague */
+}
+
+.opt-btn:hover {
+    background:  rgba(13,235,230,0.1);;
+    color:  rgba(13,235,230,1);;
+}
+
+.opt-btn.active {
+    background:  rgba(13,235,230,1);;
+    color: #000;
+    border-color:  rgba(13,235,230,1);;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(13,235,230,0.4);;
+}
+
+/* Container que permite o scroll */
+.ranking-options-container {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centraliza quando os botões não ocupam a tela toda */
+    overflow-x: auto;
+    padding: 10px 0 20px 0;
+    scrollbar-width: none; 
+}
+
+.ranking-options-container.active-dragging {
+    cursor: grabbing; /* Mão fechada enquanto arrasta */
+    scroll-behavior: auto; /* Desativa o scroll suave apenas durante o arrasto para evitar atrasos */
+}
+
+/* Ajuste na tabela para manter o width fixo */
+.materia.ranking {
+    max-width: 720px;
+    width: 95%; /* Garante margens em telas pequenas */
+    margin: 40px auto;
+}
+
+@media (min-width: 768px){
+    .materia.ranking{
+        margin-top: 70px;
+    }
+}
+
+/* =========================
+   TABELA
+========================= */
+.ranking table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.ranking thead th {
+    padding: 12px 8px;
+    color:  rgba(13,235,230,1);;
+    border-bottom: 1px solid rgba(13,235,230,0.4);;
+}
+
+.ranking tbody td {
+    padding: 12px 8px;
+    text-align: center;
+    border-bottom: 1px solid #222;
+}
+
+/* =========================
+   DESTAQUE TOP 3
+========================= */
+.ranking tbody tr:nth-child(1) {
+    background: linear-gradient(90deg, #2d2a00, #3f3a00);
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.ranking tbody tr:nth-child(2) {
+    background: linear-gradient(90deg, #2a2a2a, #3a3a3a);
+    font-weight: bold;
+    color: #cfd8dc;
+}
+
+.ranking tbody tr:nth-child(3) {
+    background: linear-gradient(90deg, #2a1a10, #3b2417);
+    font-weight: bold;
+    color: #ffb74d;
+}
+
+/* Medalhas */
+.ranking tbody tr:nth-child(1) td:first-child::before {
+    content: "🥇 ";
+}
+.ranking tbody tr:nth-child(2) td:first-child::before {
+    content: "🥈 ";
+}
+.ranking tbody tr:nth-child(3) td:first-child::before {
+    content: "🥉 ";
+}
+
+/* =========================
+   HOVER
+========================= */
+.ranking tbody tr:hover {
+    background: rgba(0,175,239,0.12);
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 600px) {
+    .materia.ranking {
+        margin: 20px 12px;
+        padding: 18px;
+    }
+
+    .ranking thead {
+        display: none;
+    }
+
+    .ranking tbody tr {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        padding: 10px 0;
+    }
+
+    .ranking tbody td {
+        border: none;
+        padding: 6px;
+    }
+
+    .ranking-options-container {
+        justify-content: flex-start;
+    }
+}
+
+/* =========================
+   ANIMAÇÃO
+========================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

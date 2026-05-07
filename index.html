@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+     <script src="script.js"></script>
+    <script src="auth.js"></script>
+    
+    <meta name="theme-color" content="#1b383a">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+       <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+ 
+    <title>Notas CEng</title>
+    
+</head>
+
+<body>
+
+
+   <header class="header">
+
+
+      <a href="index.html">
+        <img src="assets/com.png" class="logo">
+    </a>
+<a href="index.html">
+     <img src="assets/com.png" class="logo-mobile">
+     </a>
+
+    <div class="center">
+        <h1>ENGENHARIA</h1>
+
+        <!-- NAV CENTRAL -->
+        <nav class="nav-links">
+            <a href="qts.html">QTS</a>
+            <a href="index.html">Notas</a>
+            <a href="ranking.html">Ranking Geral</a>
+        </nav>
+    </div>
+
+    <!-- SAIR DESKTOP -->
+    <div class="logout-desktop">
+<div class="user-info-header">
+    <span id="username" class="username">Carregando...</span>
+    <div id="user-badges-header" class="badges-header"></div>
+</div>
+<a href="login.html" class="sair-btn">
+        <i class="fas fa-right-from-bracket"></i>
+        Sair
+    </a>
+    </div>
+    
+    
+    <!-- BOTÃO MOBILE -->
+        <button class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+    </button>
+
+
+</header>
+
+
+<nav class="mobile-menu">
+    <a href="qts.html">QTS</a>
+    <a href="index.html">Notas</a>
+    <a href="ranking.html">Ranking Geral</a>
+
+    <div class="user-info-mobile">
+        <span id="username-mobile" class="username">Carregando...</span>
+        <div id="user-badges-mobile" class="badges-header"></div>
+    </div>
+
+    <a href="login.html" class="logout-mobile">
+        <i class="fas fa-right-from-bracket"></i>
+        Sair
+    </a>
+</nav>
+
+
+
+<div class="overlay"></div>
+
+   <div class="layout">
+    
+
+    <div class="materias">
+
+        <div class="simulacao-box">
+    <div class="simulacao-header">
+        <div class="header-content">
+            <i class="fa-solid fa-flask-vial"></i>
+            <span>MODO SIMULAÇÃO</span>
+        </div>
+        <label class="switch">
+            <input type="checkbox" id="btn-modo-teste">
+            <span class="slider"></span>
+        </label>
+    </div>
+    <p id="status-teste">Desativado - Notas reais em uso.</p>
+</div>
+        
+        <!--Básico-->
+    <div class="materia" data-tipo="simples">
+        <h2>Nota do Básico</h2>
+
+        <input type="number" id="nota-bas" min="0" max="10" step="0.01" placeholder="Nota do básico">
+
+        <div class="resultado">
+            Média: <span class="media-materia">--</span>
+        </div>
+    </div>
+        
+         <!-- TEC MIL-->
+    <div class="materia">
+        <h2>Técnicas Militares de Engenharia 1</h2>
+        
+        <div class="prova">
+            <a>AA1 </a>
+            <input type="number" id="acertos-tec1-aa1" placeholder="Gaivotas feitas">
+            <input type="number" id="total-tec1-aa1" placeholder="Gaivotas totais">
+        </div>
+
+        <div class="prova">
+            <a>AA2</a>
+            <input type="number" id="acertos-tec1-aa2" placeholder="Gaivotas feitas">
+            <input type="number" id="total-tec1-aa2" placeholder="Gaivotas totais">
+        </div>
+
+        <div class="prova">
+            <a>AC</a>
+            <input type="number" id="acertos-tec1-ac" placeholder="Gaivotas feitas">
+            <input type="number" id="total-tec1-ac" placeholder="Gaivotas totais">
+        </div>
+
+        <div class="resultado">
+            Média de Tec Mil Emg 1: <span id="media-tec1">--</span>
+        </div>
+    </div>
+        
+    <div class="materia">
+        <h2>Técnicas Militares de Engenharia 2</h2>
+        
+        <div class="prova">
+            <a>AC</a>
+            <input type="number" id="acertos-tec2-ac1" placeholder="Gaivotas feitas">
+            <input type="number" id="total-tec2-ac1" placeholder="Gaivotas totais">
+        </div>
+
+        <div class="resultado">
+            Média de Tec Mil Eng 2: <span id="media-tec2">--</span>
+        </div>
+    </div>
+
+        <div class="materia">
+        <h2>Emprego da Engenharia</h2>
+        
+
+        <div class="prova">
+            <a>AC</a>
+            <input type="number" id="acertos-empre-ac" placeholder="Gaivotas feitas">
+            <input type="number" id="total-empre-ac" placeholder="Gaivotas totais">
+        </div>
+
+        <div class="resultado">
+            Média de Emprego Eng: <span id="media-ciber">--</span>
+        </div>
+</div>
+          
+    <div class="materia">
+        <h2>Técnicas Militares de Engenharia 3</h2>
+        
+        <div class="prova">
+            <a>AA1</a>
+            <input type="number" id="acertos-tec3-aa1" placeholder="Gaivotas feitas">
+            <input type="number" id="total-tec3-a1" placeholder="Gaivotas totais">
+        </div>
+
+            <div class="prova">
+            <a>AA2</a>
+            <input type="number" id="acertos-tec3-aa1" placeholder="Gaivotas feitas">
+            <input type="number" id="total-tec3-a1" placeholder="Gaivotas totais">
+        </div>
+
+
+
+        <div class="prova">
+            <a>AC</a>
+            <input type="number" id="acertos-tec3-ac" placeholder="Gaivotas feitas">
+            <input type="number" id="total-tec3-ac" placeholder="Gaivotas totais">
+        </div>
+
+        <div class="resultado">
+            Média de Tec Mil Eng 3: <span id="media-empre">--</span>
+        </div>
+    </div>
+
+
+
+
+ 
+
+        <!--PORTUGUÊS INSTRUMENTAL-->
+    <div class="materia">
+        <h2>Português Instrumental</h2>
+
+        <div class="prova">
+            <a>AC</a>
+            <input type="number" id="acertos-pt-ac" placeholder="Gaivotas feitas">
+            <input type="number" id="total-pt-ac" placeholder="Gaivotas totais">
+        </div>
+
+        <div class="resultado">
+            Média de Português Instrumental: <span id="media-pt">--</span>
+        </div>
+    </div>
+
+        <!--TCC-->
+<div class="materia" data-tipo="simples">
+    <h2>Metodologia de ensino (TCC)</h2>
+
+    <input type="number" id="nota-tcc" min="0" max="10" step="0.01" placeholder="Nota do TCC">
+
+    <div class="resultado">
+        Média: <span class="media-materia">--</span>
+    </div>
+</div>
+
+            <!--RACIOCÍNIO LÓGICO-->
+    <div class="materia">
+        <h2>Raciocínio Lógico</h2>
+
+        <div class="prova">
+            <a>AC</a>
+            <input type="number" id="acertos-racio-ac" placeholder="Gaivotas feitas">
+            <input type="number" id="total-racio-ac" placeholder="Gaivotas totais">
+        </div>
+
+        <div class="resultado">
+            Média de Raciocínio Lógico: <span id="media-racio">--</span>
+        </div>
+    </div>
+
+            <!--DIDÁTICA DE INSTRUÇÃO-->
+    <div class="materia">
+        <h2>Didática de Instrução</h2>
+
+        <div class="prova">
+            <a>AC</a>
+            <input type="number" id="acertos-didat-ac" placeholder="Gaivotas feitas">
+            <input type="number" id="total-didat-ac" placeholder="Gaivotas totais">
+        </div>
+
+        <div class="resultado">
+            Média de Didática de Instrução: <span id="media-didat">--</span>
+        </div>
+    </div>
+
+         <!-- TFM -->
+<div class="materia">
+    <h2>TFM</h2>
+
+    <!-- CORRIDA -->
+    <div class="prova-tfm">
+        <strong>Corrida</strong><br>
+        AA:
+        <input type="text" id="corrida-aa" placeholder="mm:ss" oninput="mascaraTempo(this)">
+        AC:
+        <input type="text" id="corrida-ac" placeholder="mm:ss" oninput="mascaraTempo(this)">
+        Nota:
+        <span id="nota-corrida">--</span>
+    </div>
+
+    <!-- FLEXÕES -->
+    <div class="prova-tfm">
+        <strong>Flexões</strong><br>
+        AA: <input type="number" id="flexao-aa" placeholder="Quantidade">
+        AC: <input type="number" id="flexao-ac" placeholder="Quantidade">
+        Nota: <span id="nota-flexao">--</span>
+
+    </div>
+
+    <!-- BARRA FIXA -->
+    <div class="prova-tfm">
+        <strong>Barra fixa</strong><br>
+        AA: <input type="number" id="barra-aa" placeholder="Quantidade">
+        AC: <input type="number" id="barra-ac" placeholder="Quantidade">
+        Nota: <span id="nota-barra">--</span>
+    </div>
+
+    <!-- NATAÇÃO -->
+    <div class="prova-tfm">
+        <strong>Natação</strong><br>
+        AA: <input type="text" id="natacao-aa" placeholder="mm:ss" oninput="mascaraTempo(this)">
+        AC: <input type="text" id="natacao-ac" placeholder="mm:ss" oninput="mascaraTempo(this)">
+        Nota: <span id="nota-natacao">--</span>
+    </div>
+
+    <!-- SUBIDA NA CORDA -->
+    <div class="prova-tfm">
+        <strong>Subida na corda</strong><br>
+        AA: <input type="number" step="0.1" id="corda-aa" placeholder="metros">
+        AC: <input type="number" step="0.1" id="corda-ac" placeholder="metros">
+        Nota: <span id="nota-corda">--</span>
+    </div>
+
+    <!-- PPM -->
+    <div class="prova-tfm">
+        <strong>PPM</strong><br>
+        AA: <input type="text" id="ppm-aa" placeholder="mm:ss" oninput="mascaraTempo(this)">
+        AC: <input type="text" id="ppm-ac" placeholder="mm:ss" oninput="mascaraTempo(this)">
+        Nota: <span id="nota-ppm">--</span>
+    </div>
+
+    <div class="resultado">
+        Média do TFM: <span id="media-tfm">--</span>
+    </div>
+</div>
+    
+
+<!--TIRO-->
+<div class="materia">
+    <h2>Tiro</h2>
+
+    <div class="prova">
+        <a>AC PISTOLA</a>
+        <input type="number" id="tiro-aa" placeholder="Pontos AC Pst (Máx 40)">
+    </div>
+
+    <div class="prova">
+        <a>AA FUZIL</a>
+        <input type="number" id="tiro-ac1" placeholder="Nota AA (Fz IA-2)">
+    </div>
+
+    <div class="prova">
+        <a>AC FUZIL</a>
+        <input type="number" id="tiro-ac2" placeholder="Nota AC (Fz IA-2)">
+    </div>
+
+    <div class="resultado">
+        Média de Tiro: <span id="media-tiro">--</span>
+    </div>
+</div>
+
+    <!--CONCEITO-->
+<div class="materia" data-tipo="simples">
+    <h2>Conceito</h2>
+
+    <input type="number" id="nota-conceito" min="0" max="10" step="0.01" placeholder="Nota do conceito">
+
+    <div class="resultado">
+        Média: <span class="media-materia">--</span>
+    </div>
+</div>
+    </div>
+
+</div>
+
+
+
+<div id="anchor-media">
+    <div class="media-geral" id="container-media">
+        <h3>Média Geral</h3>
+        <span id="media-geral">--</span>
+
+        <button id="btnSalvar" type="button" class="btn-salvar">
+            <span class="btn-text">Salvar</span>
+            <span class="btn-spinner"></span>
+            <span class="btn-check">✓</span>
+        </button>
+
+        <small id="status-save">Tudo salvo</small>
+    </div>
+</div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+   <script src="header.js"></script>
+   
+
+
+
+
+</body>
+</html>

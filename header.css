@@ -1,0 +1,501 @@
+/* =========================
+   VARIÁVEIS GLOBAIS
+========================= */
+:root {
+    --bg-main: #0d0d0d;
+    --bg-card: #111;
+    --bg-card-2: #0b0b0b;
+    --primary: rgba(13,235,230,1);
+    --border-soft: rgba(255,255,255,0.08);
+    --text-main: #e6e6e6;
+    --text-muted: #9aa0a6;
+    --shadow-soft: 0 8px 22px rgba(0,0,0,0.7);
+}
+
+/* =========================
+   RESET
+========================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: radial-gradient(circle at top, #1b383a 0%, #0d0d0d 100%);
+    color: #e6e6e6;
+    min-height: 100vh;
+}
+
+/* =========================
+   HEADER FIXO
+========================= */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1100;
+    margin-bottom: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px 20px;
+
+    background: linear-gradient(
+        90deg,
+        rgba(13,13,13,0.6),
+        rgba(34,69,82,0.25),
+        rgba(13,13,13,0.6)
+    );
+
+    border-bottom: 1px solid rgba(0,175,239,0.25);
+    backdrop-filter: blur(6px);
+    
+    transition: background 0.3s ease, backdrop-filter 0.3s ease;
+    flex-direction: column;
+}
+
+/* Banner Estático no Topo Absoluto */
+.banner-missao {
+    width: 100%;
+    background: linear-gradient(90deg, #004e6e 0%, rgba(13,235,230) 50%, #004e6e 100%);
+    color: white;
+    padding: 10px 15px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center; /* Centraliza o texto */
+    display: none; /* Ativado pelo JS */
+    z-index: 1001;
+    position: fixed; /* Importante para empurrar o header */
+    top: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.texto-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Garante que o Header acompanhe a posição */
+.header {
+    position: fixed;
+    top: 0; /* JS ajustará isso para a altura do banner */
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: top 0.2s ease;
+}
+
+
+
+/* AJUSTE ESSENCIAL PARA O CONTEÚDO NÃO FICAR EMBAIXO DO HEADER */
+body {
+    /* Ajuste este valor conforme a altura somada do seu header + banner */
+    padding-top: 110px; 
+}
+
+/* Ajuste para Mobile */
+@media (max-width: 768px) {
+    body {
+        padding-top: 100px;
+    }
+    .banner-missao {
+        font-size: 0.7rem;
+        padding: 4px 0;
+    }
+}
+
+
+
+/* Espaço do conteúdo */
+body {
+    padding-top: 95px;
+}
+
+
+
+
+.badges-container {
+    display: flex;
+    gap: 5px;
+    font-size: 0.75rem;
+    margin-top: 4px;
+    margin-left: 0;
+}
+
+
+/* Estilo geral das etiquetas de distintivo */
+.badge-pill {
+display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px; /* Controla o espaço exato entre o ícone e o texto */
+    padding: 4px 10px; /* Aumentamos um pouco o padding lateral */
+    border-radius: 12px; /* Garante o formato de pílula arredondada */
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap; /* Impede que o texto quebre linha */
+    width: fit-content;  /* Força o badge a ter apenas a largura do texto */
+    vertical-align: middle;
+    border: 1px solid transparent;
+}
+
+.badge-pill i {
+    margin: 0 !important; 
+    padding: 0 !important;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Cores específicas para cada distintivo */
+.badge-pill.elite {
+    background: rgba(255, 215, 0, 0.15) !important;
+    color: #ffd700 !important; /* Dourado */
+    border-color: rgba(255, 215, 0, 0.4) !important;
+}
+
+.badge-pill.cacador {
+    background: rgba(231, 76, 60, 0.15);
+    color: #e74c3c;
+    border-color: rgba(231, 76, 60, 0.3);
+}
+
+.badge-pill.guerreiro {
+    background: rgba(0, 0, 0, 0.5) !important; /* Fundo levemente branco */
+    color: #8b8b8b !important; /* Texto branco */
+    border-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.badge-pill.mestre {
+    background: rgba(255, 255, 255, 0.1) !important; /* Fundo levemente branco */
+    color: #ffffff !important; /* Texto branco */
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* Badge ADMIN */
+.badge-pill.admin {
+    background-color: #000000; /* Fundo Preto */
+    color: #ff4757;            /* Texto Vermelho ou Dourado (#ffd700) */
+    border: 1px solid #ff4757;
+    box-shadow: 0 0 5px rgba(255, 71, 87, 0.5);
+}
+
+/* Ajuste para o Header não ficar muito grande */
+.badges-header .badge-pill {
+    font-size: 0.65rem;
+    padding: 1px 6px;
+}
+
+
+/* Logos */
+.logo {
+    width: 40px;
+    position: absolute;
+}
+
+.logo:first-of-type {
+    left: 20px;
+}
+
+.logo:last-of-type {
+    right: 20px;
+}
+
+/* Logos */
+.logo-mobile {
+    width: 30px;
+    position: absolute;
+}
+
+.logo-mobile {
+    left: 20px;
+}
+
+@media (min-width: 768px) {
+    .logo-mobile {
+        display: none;
+    }
+
+    
+}
+/* =========================
+   CENTRO
+========================= */
+
+.center {
+    text-align: center;
+}
+
+.center h1 {
+    font-family: 'Orbitron', sans-serif;
+    color: rgba(13,235,230);
+    letter-spacing: 2px;
+    font-size: clamp(22px, 3vw, 30px);
+    margin-bottom: 10px;
+}
+
+/* NAV CENTRAL */
+.nav-links {
+
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.nav-links a {
+    color:rgba(13,235,230,1);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/*.nav-links a:hover{
+    font-size: 14.5px;
+    text-shadow: rgb(0,175,239) 1px 0 20px;
+    transition: 0.3s;
+}
+
+/* Classe de destaque para o Painel Admin */
+
+.link-admin-destaque {
+    color: #ff9f43 !important; /* Dourado padrão */
+    font-weight: bold !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.link-admin-destaque i {
+    color: #ff9f43;
+}
+
+/* No mobile, adicionamos uma borda lateral para diferenciar */
+.mobile-menu a.link-admin-destaque {
+    border-left: 4px solid #ff9f43;
+    background: rgba(255, 159, 67, 0.05);
+}
+/* =========================
+   SAIR DESKTOP
+========================= */
+
+.logout-desktop {
+    position: absolute;
+    right: 80px; /* antes da imagem direita */
+
+    color: rgba(13,235,230,1);
+    text-decoration: none;
+    font-size: 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-info-header{
+
+    max-width: 100px;
+}
+
+.sair-btn {
+
+    color: rgba(13,235,230,1);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* =========================
+   BOTÃO MOBILE
+========================= */
+
+.menu-toggle {
+    width: 30px;
+    height: 24px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10001; /* Acima de tudo */
+}
+.menu-toggle span {
+    width: 90%;
+    height: 3px;
+    background-color: rgba(13,235,230,1); /* Cor azul padrão do seu site */
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;   
+}
+/* ----- ESTADO "X" (QUANDO ATIVO) ----- */
+
+/* Linha de cima inclina 45 graus e desce */
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(10.5px) rotate(45deg);
+}
+
+/* Linha do meio desaparece (fica invisível) */
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+/* Linha de baixo inclina -45 graus e sobe */
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-10.5px) rotate(-45deg);
+}
+
+
+.username{
+    cursor: auto;
+    text-decoration: underline;
+
+}
+
+/* =========================
+   MENU MOBILE
+========================= */
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -50%;
+    width: 50%;
+    height: 100vh;
+
+    background: linear-gradient(180deg, #0b0b0b, #0f1f26);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+
+    transition: 0.35s;
+    z-index: 1001;
+}
+
+.mobile-menu a {
+    color: rgb(0,175,239);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.user-info-mobile {
+    padding: 20px 15px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-info-mobile .username {
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+/* Garante que os badges no mobile fiquem alinhados à esquerda e quebrem linha se necessário */
+#user-badges-mobile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-left: 0; /* No mobile, alinhar à esquerda do menu */
+}
+
+/* Ajuste no tamanho do badge dentro do menu mobile para não ocupar a tela toda */
+.user-info-mobile .badge-pill {
+    margin-left: 0;
+    font-size: 0.7rem;
+    padding: 4px 8px;
+}
+
+/* SAIR MOBILE */
+.logout-mobile {
+    margin-top: 40px;
+    color: #ff4d4d;
+}
+
+.logout-desktop i {
+    margin-left: 20px;
+}
+
+
+
+/* FECHAR */
+.close-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    background: none;
+    border: none;
+    color: rgba(13,235,230,1);
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+    .logo,
+    .logout-desktop,
+    .nav-links {
+        display: none;
+    }
+
+    .menu-toggle {
+display: flex;
+        position: absolute;
+        right: 20px; 
+        top: 50%;
+        transform: translateY(-50%); 
+    }
+
+}
+
+@media (max-width: 420px) {
+    .mobile-menu {
+        width: 100%;
+        right: -100%;
+    }
+}
+
+
+.menu-toggle i {
+    transition: transform 0.25s ease;
+}
+
+.mobile-menu.active + .menu-toggle i {
+    transform: rotate(90deg);
+}
+

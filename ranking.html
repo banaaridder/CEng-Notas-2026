@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranking Geral</title>
+
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="ranking.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <meta name="theme-color" content="#1b383a">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+       <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+
+   <header class="header">
+      <a href="index.html">
+        <img src="assets/com.png" class="logo">
+    </a>
+<a href="index.html">
+     <img src="assets/com.png" class="logo-mobile">
+     </a>
+
+    <div class="center">
+        <h1>ENGENHARIA</h1>
+
+        <!-- NAV CENTRAL -->
+        <nav class="nav-links">
+            <a href="qts.html">QTS</a>
+            <a href="index.html">Notas</a>
+            <a href="ranking.html">Ranking Geral</a>
+        </nav>
+    </div>
+
+    <!-- SAIR DESKTOP -->
+    <div class="logout-desktop">
+<div class="user-info-header">
+    <span id="username" class="username">Carregando...</span>
+    <div id="user-badges-header" class="badges-header"></div>
+</div>
+<a href="login.html" class="sair-btn">
+        <i class="fas fa-right-from-bracket"></i>
+        Sair
+    </a>
+    </div>
+    
+    
+    <!-- BOTÃO MOBILE -->
+        <button class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+    </button>
+</header>
+
+
+<nav class="mobile-menu">
+    <a href="qts.html">QTS</a>
+    <a href="index.html">Notas</a>
+    <a href="ranking.html">Ranking Geral</a>
+
+    <div class="user-info-mobile">
+        <span id="username-mobile" class="username">Carregando...</span>
+        <div id="user-badges-mobile" class="badges-header"></div>
+    </div>
+
+    <a href="login.html" class="logout-mobile">
+        <i class="fas fa-right-from-bracket"></i>
+        Sair
+    </a>
+</nav>
+
+<div class="overlay"></div>
+
+<div class="materia ranking">
+    <h2>Ranking</h2>
+
+    <div class="ranking-options-container">
+    <div class="ranking-options" id="ranking-options">
+        <button class="opt-btn active" data-materia="media_geral">Geral</button>
+        <button class="opt-btn" data-materia="tfm">TFM</button>
+        <button class="opt-btn" data-materia="tiro">Tiro</button>
+        <button class="opt-btn" data-materia="papiro">Papiro</button>
+    </div>
+</div>
+    
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Aluno</th>
+                <th id="label-media">Média Geral</th>
+            </tr>
+        </thead>
+        <tbody id="ranking-body"></tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="header.js"></script>
+<script src="ranking.js"></script>
+<script src="auth.js"></script>
+
+
+</body>
+</html>
