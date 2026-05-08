@@ -113,7 +113,7 @@ async function carregarDistintivosHeader() {
     containers.forEach(c => { if(c) c.innerHTML = ""; });
 
     // 2. INJEÇÃO DO DISTINTIVO ADMIN (Para Davi Costa e Admin)
-    const admins = ["ADMIN","P GALVAO", "TELLES", "TEN GABRIEL NOGUEIRA"];
+    const admins = ["ADMIN","P GALVÃO", "TELLES", "TEN GABRIEL NOGUEIRA"];
     if (admins.includes(meuNome.toUpperCase().trim())) {
         const badgeAdminHTML = '<span class="badge-pill admin" title="Administrador"><i class="fa-solid fa-crown"></i> ADMIN</span>';
         containers.forEach(c => { 
@@ -130,7 +130,7 @@ async function carregarDistintivosHeader() {
 
     // Funções auxiliares de cálculo
     const calcularPapiro = (item) => {
-        const mats = ["tec", "fund", "ciber", "empre", "pt", "racio"];
+        const mats = ["tec1", "tec2", "tec3", "empre", "pt", "racio"];
         let soma = 0, qtd = 0;
         mats.forEach(m => {
             let n = parseFloat(item.dados?.[`media-${m}`]);
@@ -164,7 +164,7 @@ async function carregarDistintivosHeader() {
         containers.forEach(c => { if(c) c.insertAdjacentHTML('beforeend', html); });
     };
 
-    if (sou01Geral) renderizarExtra('<span class="badge-pill elite"><i class="fa-solid fa-trophy"></i>01 CCom</span>');
+    if (sou01Geral) renderizarExtra('<span class="badge-pill elite"><i class="fa-solid fa-trophy"></i>01 CEng</span>');
     if (souCacador) renderizarExtra('<span class="badge-pill cacador"><i class="fa-solid fa-crosshairs"></i>Caçador</span>');
     if (souCalcaoPreto) renderizarExtra('<span class="badge-pill guerreiro"><i class="fa-solid fa-person-running"></i>Calção Preto</span>');
     if (souPapirao) renderizarExtra('<span class="badge-pill mestre"><i class="fa-solid fa-book-open"></i>Papirão</span>');

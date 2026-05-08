@@ -51,7 +51,7 @@ async function carregarRanking(materiaFiltro = "media_geral") {
 
     // Função interna para calcular o Papiro ignorando zeros
     const calcularPapiro = (item) => {
-        const mats = ["tec", "fund", "ciber", "empre", "pt", "racio"];
+        const mats = ["tec1", "tec2", "tec3", "empre", "pt", "racio"];
         let soma = 0, qtd = 0;
         mats.forEach(m => {
             let n = parseFloat(item.dados?.[`media-${m}`]);
