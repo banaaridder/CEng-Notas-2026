@@ -5,7 +5,7 @@ const supabaseAdmin = window.supabaseClient;
 (function() {
     const id = localStorage.getItem("usuarioLogado");
     const nome = (localStorage.getItem("nomeUsuario") || "").toUpperCase().trim();
-    const permitidos = ["ADMIN","P GALVAO", "TELLES"];
+    const permitidos = ["ADMIN","P GALVÃO", "TELLES"];
 
     // Se não tiver ID (não está logado) ou o nome não for permitido
     if (!id || !permitidos.includes(nome)) {

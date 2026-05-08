@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const spanUsernameMobile = document.getElementById("username-mobile");
 
     // CONFIGURAÇÃO DE PERMISSÕES
-    const listaAdmins = ["ADMIN","P GALVAO", "TELLES", "TEN GABRIEL NOGUEIRA"]; // Quem tem poderes de admin
+    const listaAdmins = ["ADMIN","P GALVÃO", "TELLES"]; // Quem tem poderes de admin
     const usuarioEhAdmin = listaAdmins.includes(nomeUsuario);
 
     // Exibe o nome do usuário
