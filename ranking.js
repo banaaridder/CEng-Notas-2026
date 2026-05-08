@@ -122,7 +122,7 @@ async function carregarRanking(materiaFiltro = "media_geral") {
         
         // Verificação usando .includes() por causa do sistema de empate (arrays)
         if (donosBadges.elite.includes(aluno.uid)) 
-            badgesHtml += ' <span class="badge-pill elite"><i class="fa-solid fa-trophy"></i> 01 CCom</span>';
+            badgesHtml += ' <span class="badge-pill elite"><i class="fa-solid fa-trophy"></i> 01 CEng</span>';
         
         if (donosBadges.cacador.includes(aluno.uid)) 
             badgesHtml += ' <span class="badge-pill cacador"><i class="fa-solid fa-crosshairs"></i> Caçador</span>';
